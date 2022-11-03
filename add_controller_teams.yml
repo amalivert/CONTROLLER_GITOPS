@@ -7,7 +7,7 @@
     controller_validate_certs: false
   vars_files: 
     - vars/controller_teams.yml
-    - controller_configs/controller_auth.yaml
+    - controller_configs/controller_auth.yml
   
   pre_tasks:
     
