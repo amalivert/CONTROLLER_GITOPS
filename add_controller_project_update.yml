@@ -1,0 +1,43 @@
+---
+- name: Playbook to configure ansible controller project update post installation
+  hosts: localhost
+  connection: local
+
+  vars:
+    controller_validate_certs: false
+  vars_files: 
+    - vars/controler_project_update.yaml
+    - controller_configs/controller_auth.yaml
+  
+  pre_tasks:
+    
+    - name: Get token for use during play
+      ansible.builtin.uri: 
+        url: "https://{{ controller_hostname }}/api/v2/tokens/"
+        method: POST
+        user: "{{ controller_username }}"
+        password: "{{ controller_password }}"
+        force_basic_auth: yes
+        status_code: 201
+        validate_certs: no
+      register: user_token
+      no_log: False
+
+    # NOTE: 'controller_oauthtoken' is used in 'redhat_cop.controller_configuration'
+    - name: Set Controller oath Token
+      ansible.builtin.set_fact:
+        controller_oauthtoken: "{{ user_token.json.token }}"
+  
+  roles:
+       - role: redhat_cop.controller_configuration.project_update
+
+  post_tasks:
+    
+      - name: Delete our Token 
+        ansible.controller.token:
+          existing_token: "{{ controller_oauthtoken }}"
+          state: absent
+        tags:
+           - always
+       
+       

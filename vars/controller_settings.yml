@@ -1,0 +1,6 @@
+---
+controller_settings:
+  - name: AUTH_LDAP_USER_DN_TEMPLATE
+    value: "uid=%(user)s,ou=Users,dc=example,dc=com"
+  - name: AUTH_LDAP_BIND_PASSWORD
+    value: "password"

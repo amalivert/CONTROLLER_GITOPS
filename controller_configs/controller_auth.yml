@@ -1,0 +1,5 @@
+---
+controller_hostname: 'aap-cont-1.local.lan'
+controller_username: 'admin'
+controller_password: 'redhat123'
+verify_ssl: 'False'

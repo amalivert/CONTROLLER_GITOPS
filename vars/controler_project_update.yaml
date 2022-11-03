@@ -1,0 +1,10 @@
+---
+controller_projects:
+  - name: test_sec_group
+    scm_type: git
+    scm_url: https://github.com/amalivert/test_repo.git
+    scm_branch: master
+    scm_clean: true
+    description: test_sec_project
+    organization: Default
+    wait: true
