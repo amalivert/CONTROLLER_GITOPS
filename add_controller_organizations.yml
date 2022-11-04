@@ -6,7 +6,7 @@
   vars:
     controller_validate_certs: false
   vars_files: 
-    - vars/controller_organizations.yml
+    - vars/controller_organizations.json
     - controller_configs/controller_auth.yml
   
   roles:
