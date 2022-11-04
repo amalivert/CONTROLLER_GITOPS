@@ -1,0 +1,18 @@
+---
+- name: Playbook to export configs from ansible controller
+  hosts: localhost
+  connection: local
+
+  tasks:
+          - name: Export all assets
+            ansible.controller.export:
+              all: True
+            register: result
+
+          - name: Copy results to assets file
+            ansible.builtin.copy:
+              content: "{{ result }}"
+              dest: /home/admin/assets.json
+
+  collections:
+          - ansible.controller
