@@ -4,7 +4,7 @@
       "name": "secadm",
       "description": "secadm collections",
       "max_hosts": 0,
-      "default_environment": null,
+      "default_environment": [],
       "related": {
         "execution_environments": [],
         "notification_templates": [],
