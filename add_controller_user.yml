@@ -35,7 +35,7 @@
     
       - name: Delete our Token 
         ansible.controller.token:
-          existing_token: "{{ controller_oauthtoken }}"
+          existing_token: "{{ user_token }}"
           state: absent
         tags:
            - always
