@@ -15,7 +15,7 @@
           #    content: "{{ result }}"
           #    dest: /home/admin/assets.json
           
-          - name:: Install jq package
+          - name: Install jq package
             ansible.builtin.dnf:
               name: jq
               state: present
@@ -24,7 +24,11 @@
             ansible.builtin.command: >
                       /usr/bin/jq '.assets.organizations' 
                       /{{ansible_home_dir}}/assets.json
-            register: controller_orgs
+            register: jq_results
+
+          - name: Set Controller oath Token
+            set_fact:
+              controller_orgs : "{{ jq_results }}"
 
           - name: Create organization var file
             ansible.builtin.template:
