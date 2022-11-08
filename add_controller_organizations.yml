@@ -9,6 +9,8 @@
     - vars/controller_organizations.json
     - controller_configs/controller_auth.yml
   
+  tasks:
+    - name: Exports all assets 
   roles:
        - role: redhat_cop.controller_configuration.organizations
        

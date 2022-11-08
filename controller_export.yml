@@ -2,6 +2,7 @@
 - name: Playbook to export configs from ansible controller
   hosts: localhost
   connection: local
+  gather_facts: True
 
   tasks:
           - name: Export all assets
@@ -9,10 +10,27 @@
               all: True
             register: result
 
-          - name: Copy results to assets file
-            ansible.builtin.copy:
-              content: "{{ result }}"
-              dest: /home/admin/assets.json
+          #- name: Copy results to assets file
+          #  ansible.builtin.copy:
+          #    content: "{{ result }}"
+          #    dest: /home/admin/assets.json
+          
+          - name:: Install jq package
+            ansible.builtin.dnf:
+              name: jq
+              state: present
 
+          - name: extract organizations 
+            ansible.builtin.command: >
+                      /usr/bin/jq '.assets.organizations' 
+                      /{{ansible_home_dir}}/assets.json
+            register: controller_orgs
+
+          - name: Create organization var file
+            ansible.builtin.template:
+                src: templates/controller_organizations.json.j2
+                dest: vars/controller_organizations.json.j2
+               
+          
   collections:
           - ansible.controller
