@@ -1,0 +1,23 @@
+- name: Playbook to export configs from ansible controller
+  hosts: localhost
+  connection: local
+  gather_facts: true
+
+  vars:
+
+    controller_assets_keys:
+      - organizations
+      - job_templates
+      - projects
+      - workflow_job_templates
+      - credentials
+
+  collections:
+      - ansible.controller
+      
+  tasks:
+
+    - name: Create assets variables
+      ansible.builtin.include_tasks: 
+        - controller_export.yml
+      loop: "{{ controller_assets_keys }}"

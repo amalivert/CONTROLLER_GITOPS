@@ -1,50 +1,30 @@
 ---
-- name: Playbook to export configs from ansible controller
-  hosts: localhost
-  connection: local
-  gather_facts: True
-  
-  vars:
-  
-    controller_assets_keys:
-      - organizations
-      - job_templates
-      - projects
-      - workflow_job_templates
-      - credentials
 
+- name: Export all assets
+  ansible.controller.export:
+    all: True
+  register: result
 
-  tasks:
-          - name: Export all assets
-            ansible.controller.export:
-              all: True
-            register: result
+- name: Copy results to assets file
+  ansible.builtin.copy:
+    content: "{{ result }}"
+    dest: files/assets.json
+    force: yes
 
-          - name: Copy results to assets file
-            ansible.builtin.copy:
-              content: "{{ result }}"
-              dest: files/assets.json
-              force: yes
+- name: extract  asset
+  ansible.builtin.command: >
+            /usr/bin/jq '.assets.{{ item }}' 
+            files/assets.json
+  register: jq_results
 
-          - name: extract {{ item }} asset
-            ansible.builtin.command: >
-                    /usr/bin/jq '.assets.{{ item }}' 
-                    files/assets.json
-            register: jq_{{ item }}_results
-            loop: "{{ controller_assets_keys }}"
+- name: Set jq assets var 
+  set_fact:
+    controller_: "jq_{{ item }}_results.stdout| from_json | to_nice_json "
+            
 
-          - name: Set jq {{ item }}_var 
-            set_fact:
-              controller_{{ item }}: "jq_{{ item }}_results.stdout| from_json | to_nice_json "
-            loop: "{{ controller_assets_keys }}"
-
-          - name: Create {{ item }} var file
-            ansible.builtin.template:
-                src: templates/controller_{{ item }}.json.j2
-                dest: vars/controller_{{ item }}.json
-                force: yes
-            loop: "{{ controller_assets_keys }}"
+- name: Create {{ item }} var file
+  ansible.builtin.template:
+    src: templates/controller_{{ item }}.json.j2
+    dest: vars/controller_{{ item }}.json
+    force: yes
          
-          
-  collections:
-  - ansible.controller
