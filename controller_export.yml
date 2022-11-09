@@ -29,7 +29,7 @@
             register: jq_results
           
           - ansible.builtin.debug:
-            var: jq_results
+              var: jq_results
 
           - name: Set jq org result var
             set_fact:
