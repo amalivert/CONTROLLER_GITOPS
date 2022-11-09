@@ -10,23 +10,23 @@
               all: True
             register: result
 
-          #- name: Copy results to assets file
-          #  ansible.builtin.copy:
-          #    content: "{{ result }}"
-          #    dest: /home/admin/assets.json
+          - name: Copy results to assets file
+            ansible.builtin.copy:
+              content: "{{ result }}"
+              dest: files/assets.json
           
           - name: Install jq package
             ansible.builtin.dnf:
               name: jq
               state: present
-
+          
           - name: extract organizations 
             ansible.builtin.command: >
                       /usr/bin/jq '.assets.organizations' 
-                      /{{ansible_home_dir}}/assets.json
+                      files/assets.json
             register: jq_results
 
-          - name: Set Controller oath Token
+          - name: Set jq org result var
             set_fact:
               controller_orgs : "{{ jq_results }}"
 
