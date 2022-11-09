@@ -28,12 +28,12 @@
                       files/assets.json
             register: jq_results
           
-          - ansible.builtin.debug:
-              var: jq_results
+          #- ansible.builtin.debug:
+          #    var: jq_results
 
           - name: Set jq org result var
             set_fact:
-              controller_orgs : "{{ jq_results.stdout| from_json | to_nice_json }}"
+               controller_orgs : "{{ jq_results.stdout| from_json | to_nice_json }}"
 
           - name: Create organization var file
             ansible.builtin.template:
