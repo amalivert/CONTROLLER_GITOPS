@@ -19,6 +19,5 @@
   tasks:
 
     - name: Create assets variables
-      ansible.builtin.include_tasks: 
-        - controller_export.yml
+      ansible.builtin.include_tasks: controller_export.yml
       loop: "{{ controller_assets_keys }}"
