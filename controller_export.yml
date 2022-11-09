@@ -11,6 +11,7 @@
       - job_templates
       - projects
       - workflow_job_templates
+      - credentials
 
 
   tasks:
@@ -25,24 +26,23 @@
               dest: files/assets.json
               force: yes
 
-          - block:
-              - name: extract organizations 
-                ansible.builtin.command: >
-                      /usr/bin/jq '.assets.{{ item }}' 
-                      files/assets.json
-                register: jq_results
-      
+          - name: extract {{ item }} asset
+            ansible.builtin.command: >
+                    /usr/bin/jq '.assets.{{ item }}' 
+                    files/assets.json
+            register: jq_{{ item }}_results
+            loop: "{{ controller_assets_keys }}"
 
-              - name: Set jq {{ item }}_var 
-                set_fact:
-                  controller_{{ item }}: "{{ jq_results.stdout| from_json | to_nice_json }}"
+          - name: Set jq {{ item }}_var 
+            set_fact:
+              controller_{{ item }}: "jq_{{ item }}_results.stdout| from_json | to_nice_json "
+            loop: "{{ controller_assets_keys }}"
 
-              - name: Create organization var file
-                ansible.builtin.template:
-                    src: templates/controller_{{ item }}.json.j2
-                    dest: vars/controller_{{ item }}.json
-                    force: yes
-            
+          - name: Create {{ item }} var file
+            ansible.builtin.template:
+                src: templates/controller_{{ item }}.json.j2
+                dest: vars/controller_{{ item }}.json
+                force: yes
             loop: "{{ controller_assets_keys }}"
          
           
