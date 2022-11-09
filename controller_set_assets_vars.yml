@@ -18,6 +18,17 @@
 
   tasks:
 
+    - name: Export all assets
+      ansible.controller.export:
+       all: True
+      register: result
+
+    - name: Copy results to assets file
+      ansible.builtin.copy:
+        content: "{{ result }}"
+        dest: files/assets.json
+        force: yes
+        
     - name: Create assets variables
       ansible.builtin.include_tasks: controller_export.yml
       loop: "{{ controller_assets_keys }}"

@@ -1,25 +1,13 @@
 ---
-
-- name: Export all assets
-  ansible.controller.export:
-    all: True
-  register: result
-
-- name: Copy results to assets file
-  ansible.builtin.copy:
-    content: "{{ result }}"
-    dest: files/assets.json
-    force: yes
-
-- name: extract  asset
+- name: extract {{ item }} asset
   ansible.builtin.command: >
             /usr/bin/jq '.assets.{{ item }}' 
             files/assets.json
   register: jq_results
 
-- name: Set jq assets var 
+- name: Set jq {{ item }} assets var 
   set_fact:
-    controller_: "jq_{{ item }}_results.stdout| from_json | to_nice_json "
+    controller_{{ item }}_var: "jq_results.stdout| from_json | to_nice_json "
             
 
 - name: Create {{ item }} var file
