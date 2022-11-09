@@ -10,4 +10,4 @@
     - vars/controller_instance_groups.yaml
   
   roles:
-    - role: redhat_cop.controller_configuration.groups
+    - redhat_cop.controller_configuration.groups

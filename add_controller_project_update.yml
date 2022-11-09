@@ -10,5 +10,5 @@
     - controller_configs/controller_auth.yml
   
   roles:
-    - role: redhat_cop.controller_configuration.project_update
+    - redhat_cop.controller_configuration.project_update
 
