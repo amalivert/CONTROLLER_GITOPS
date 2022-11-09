@@ -1,7 +1,7 @@
 ---
 - name: extract {{ item }} asset
   ansible.builtin.command: >
-            /usr/bin/jq \'.assets.{{ item }}\' files/assets.json
+            /usr/bin/jq '.assets.{{ item }}' files/assets.json
   register: jq_results
 
 - debug:
