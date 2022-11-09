@@ -11,4 +11,4 @@
   
 
   roles:
-       - role: redhat_cop.controller_configuration.notification_templates
+    - role: redhat_cop.controller_configuration.notification_templates
