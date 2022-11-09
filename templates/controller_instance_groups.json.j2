@@ -1,7 +1,7 @@
 {
-  "controller_instance_groups": 
-   {% if controller_instance_groups_var is defined %}
-   {{ controller_instance_groups_var }}
+  "controller_credentials": 
+   {% if controller_var is defined %}
+   {{ controller_var }}
    {% endif %}
 
 }

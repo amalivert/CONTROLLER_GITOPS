@@ -8,8 +8,8 @@
     var: jq_results
 
 - name: Set jq {{ item }} assets var 
-  set_fact:
-    controller_{{ item }}_var: "jq_results.stdout| from_json | to_nice_json "
+  ansible.builtin.set_fact:
+    controller_var: "jq_results.stdout| from_json | to_nice_json"
             
 
 - name: Create {{ item }} var file
