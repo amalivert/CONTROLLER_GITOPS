@@ -30,7 +30,7 @@
 
           - name: Set jq org result var
             set_fact:
-              controller_orgs : "{{ jq_results | to_json }}"
+              controller_orgs : "{{ jq_results.stdout | to_nice_json }}"
 
           - name: Create organization var file
             ansible.builtin.template:
