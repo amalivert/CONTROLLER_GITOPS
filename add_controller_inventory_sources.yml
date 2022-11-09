@@ -10,4 +10,4 @@
     - vars/controller_users.yml
   
   roles:
-       - role: redhat_cop.controller_configuration.inventory_sources
+    - role: redhat_cop.controller_configuration.inventory_sources

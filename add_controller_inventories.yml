@@ -11,4 +11,4 @@
   
   
   roles:
-       - role: redhat_cop.controller_configuration.inventories
+    - role: redhat_cop.controller_configuration.inventories

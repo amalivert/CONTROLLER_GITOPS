@@ -11,7 +11,7 @@
   
   
   roles:
-       - role: redhat_cop.controller_configuration.job_templates
+    - role: redhat_cop.controller_configuration.job_templates
 
   
        
