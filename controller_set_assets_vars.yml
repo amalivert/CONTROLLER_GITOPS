@@ -1,3 +1,4 @@
+---
 - name: Playbook to export configs from ansible controller
   hosts: localhost
   connection: local
@@ -13,8 +14,8 @@
       - credentials
 
   collections:
-      - ansible.controller
-      
+    - ansible.controller
+
   tasks:
 
     - name: Create assets variables
