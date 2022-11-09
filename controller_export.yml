@@ -16,10 +16,11 @@
               dest: files/assets.json
               force: yes
           
-          #- name: Install jq package
-          #  ansible.builtin.dnf:
-          #    name: jq
-          #    state: present
+          - name: Install jq package
+            ansible.builtin.dnf:
+              name: jq
+              state: present
+            become: yes
           
           - name: extract organizations 
             ansible.builtin.command: >
