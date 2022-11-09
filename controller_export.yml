@@ -42,4 +42,4 @@
                 force: yes
           
   collections:
-          - ansible.controller
+  - ansible.controller
