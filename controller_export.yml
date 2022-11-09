@@ -6,7 +6,7 @@
   
   vars:
   
-    controller_assets_key_value:
+    controller_assets_keys:
       - organizations
       - job_templates
       - projects
@@ -24,27 +24,27 @@
               content: "{{ result }}"
               dest: files/assets.json
               force: yes
-          
-          - name: extract organizations 
-            ansible.builtin.command: >
-                      /usr/bin/jq '.assets.organizations' 
+              
+          - block:
+              - name: extract organizations 
+                ansible.builtin.command: >
+                      /usr/bin/jq '.assets.{{ item }}' 
                       files/assets.json
-            register: jq_results
-          
-          #- ansible.builtin.debug:
-          #    var: jq_results
+                register: jq_results
+      
 
-          - name: Set jq org result var
-            set_fact:
-               controller_orgs : "{{ jq_results.stdout| from_json | to_nice_json }}"
+              - name: Set jq {{ item }}_var 
+                set_fact:
+                  controller_{{ item }}: "{{ jq_results.stdout| from_json | to_nice_json }}"
 
-          - name: Create organization var file
-            ansible.builtin.template:
-                src: templates/controller_organizations.json.j2
-                dest: vars/controller_organizations.json
-                force: yes
-
-
+              - name: Create organization var file
+                ansible.builtin.template:
+                    src: templates/controller_{{ item }}.json.j2
+                    dest: vars/controller_{{ item }}.json
+                    force: yes
+            
+            loop: "{{ controller_assets_keys }}"
+         
           
   collections:
   - ansible.controller
