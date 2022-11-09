@@ -7,7 +7,7 @@
     controller_validate_certs: false
   vars_files: 
     - controller_configs/controller_settings.yml
-    - vars/controller_inventories.yaml
+    - vars/controller_inventories.json
   
   
   roles:

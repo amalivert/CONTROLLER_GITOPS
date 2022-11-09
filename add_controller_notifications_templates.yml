@@ -8,7 +8,7 @@
     
   vars_files: 
     - controller_configs/controller_auth.yml
-    - vars/controller_notifications.yml
+    - vars/controller_notifications.json
   
 
   roles:

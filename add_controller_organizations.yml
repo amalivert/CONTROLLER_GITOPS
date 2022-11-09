@@ -7,8 +7,9 @@
     controller_validate_certs: false
 
   vars_files: 
-    - vars/controller_organizations.json
     - controller_configs/controller_auth.yml
+    - vars/controller_organizations.json
+  
   
   roles:
     - redhat_cop.controller_configuration.organizations

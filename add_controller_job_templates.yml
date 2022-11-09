@@ -6,8 +6,9 @@
   vars:
     controller_validate_certs: false
   vars_files: 
-    - vars/controller_job_templates.yml
     - controller_configs/controller_auth.yaml
+    - vars/controller_job_templates.json
+
   
   
   roles:

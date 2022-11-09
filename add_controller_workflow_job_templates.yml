@@ -8,7 +8,7 @@
 
   vars_files: 
     - controller_configs/controller_settings.yml
-    - vars/controller_users.yml
+    - vars/controller_workflow_job_templates.json
   
   roles:
-    - redhat_cop.controller_configuration.users
+    - redhat_cop.controller_configuration.workflow_job_templates

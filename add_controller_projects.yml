@@ -6,9 +6,10 @@
   vars:
     controller_validate_certs: false
   vars_files: 
-    - vars/controler_project_update.yml
     - controller_configs/controller_auth.yml
+    - vars/controler_projects.json
+  
   
   roles:
-    - redhat_cop.controller_configuration.project_update
+    - redhat_cop.controller_configuration.projects
 

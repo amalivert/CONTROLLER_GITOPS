@@ -1,5 +1,0 @@
----
-controller_inventories:
-  - name: iventory_test
-    organization: secadm
-    description: created by Ansible Playbook - for secadmin
