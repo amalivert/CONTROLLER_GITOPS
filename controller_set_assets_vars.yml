@@ -12,6 +12,7 @@
       - projects
       - workflow_job_templates
       - credentials
+      - execution_environments
 
   collections:
     - ansible.controller

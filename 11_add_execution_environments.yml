@@ -1,0 +1,14 @@
+---
+- name: Playbook to configure ansible execution environments post installation
+  hosts: localhost
+  connection: local
+
+  vars:
+    controller_validate_certs: false
+  vars_files: 
+    - controller_configs/controller_auth.yml
+    - vars/controller_execution_environments.json
+  
+
+  roles:
+    - redhat_cop.controller_configuration.execution_environments
