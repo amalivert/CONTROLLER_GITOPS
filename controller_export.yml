@@ -5,7 +5,7 @@
   register: jq_results
 
 - debug:
-    var: jq_results
+    var: jq_results|to_nice_yaml( width=50, explicit_start=True, explicit_end=True)
 
 - name: Set jq {{ item }} assets var 
   ansible.builtin.set_fact:
