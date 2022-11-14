@@ -14,7 +14,7 @@
 
 - name: Create {{ item }} var file
   ansible.builtin.template:
-    src: templates/controller_{{ item }}.yaml.j2
+    src: templates/controller_{{ item }}.yml.j2
     dest: vars/controller_{{ item }}.yaml
     force: yes
          
